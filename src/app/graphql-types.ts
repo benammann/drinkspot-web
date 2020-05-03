@@ -79,19 +79,10 @@ export type Query = {
 export type QuerySearchDrinkingSpotsArgs = {
   latitude: Scalars['Float'];
   longitude: Scalars['Float'];
-  radius?: Maybe<Scalars['Int']>;
+  radius: Scalars['Int'];
+  name?: Maybe<Scalars['String']>;
+  quality?: Maybe<Array<DrinkSpotWaterQuality>>;
 };
-
-export type HomePageDataQueryVariables = {};
-
-
-export type HomePageDataQuery = (
-  { __typename?: 'Query' }
-  & { drink_spots: Array<(
-    { __typename?: 'DrinkSpot' }
-    & Pick<DrinkSpot, 'id' | 'name' | 'description' | 'down_votes' | 'up_votes' | 'latitude' | 'longitude'>
-  )> }
-);
 
 export type ProfilePageDataQueryVariables = {};
 
@@ -121,27 +112,23 @@ export type CreateDrinkSpotMutation = (
   )> }
 );
 
-export const HomePageDataDocument = gql`
-    query HomePageData {
-  drink_spots: searchDrinkingSpots(latitude: 0, longitude: 0, radius: 0) {
-    id
-    name
-    description
-    down_votes
-    up_votes
-    latitude
-    longitude
-  }
-}
-    `;
+export type SearchDrinkSpotQueryVariables = {
+  latitude: Scalars['Float'];
+  longitude: Scalars['Float'];
+  radius: Scalars['Int'];
+  name?: Maybe<Scalars['String']>;
+  quality?: Maybe<Array<DrinkSpotWaterQuality>>;
+};
 
-  @Injectable({
-    providedIn: 'root'
-  })
-  export class HomePageDataGQL extends Apollo.Query<HomePageDataQuery, HomePageDataQueryVariables> {
-    document = HomePageDataDocument;
-    
-  }
+
+export type SearchDrinkSpotQuery = (
+  { __typename?: 'Query' }
+  & { search_results: Array<(
+    { __typename?: 'DrinkSpot' }
+    & Pick<DrinkSpot, 'id' | 'name' | 'description' | 'down_votes' | 'up_votes' | 'latitude' | 'longitude' | 'quality'>
+  )> }
+);
+
 export const ProfilePageDataDocument = gql`
     query ProfilePageData {
   current_user: getCurrentUser {
@@ -177,5 +164,27 @@ export const CreateDrinkSpotDocument = gql`
   })
   export class CreateDrinkSpotGQL extends Apollo.Mutation<CreateDrinkSpotMutation, CreateDrinkSpotMutationVariables> {
     document = CreateDrinkSpotDocument;
+    
+  }
+export const SearchDrinkSpotDocument = gql`
+    query SearchDrinkSpot($latitude: Float!, $longitude: Float!, $radius: Int!, $name: String, $quality: [DrinkSpotWaterQuality!]) {
+  search_results: searchDrinkingSpots(latitude: $latitude, longitude: $longitude, radius: $radius, name: $name, quality: $quality) {
+    id
+    name
+    description
+    down_votes
+    up_votes
+    latitude
+    longitude
+    quality
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class SearchDrinkSpotGQL extends Apollo.Query<SearchDrinkSpotQuery, SearchDrinkSpotQueryVariables> {
+    document = SearchDrinkSpotDocument;
     
   }

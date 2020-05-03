@@ -1,0 +1,12 @@
+query SearchDrinkSpot($latitude: Float!, $longitude: Float!, $radius: Int!, $name: String, $quality: [DrinkSpotWaterQuality!]) {
+  search_results: searchDrinkingSpots(latitude: $latitude, longitude: $longitude, radius: $radius, name: $name, quality: $quality) {
+    id
+    name
+    description
+    down_votes
+    up_votes
+    latitude
+    longitude
+    quality
+  }
+}

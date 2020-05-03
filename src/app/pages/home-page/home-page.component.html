@@ -1,3 +1,7 @@
-<pre>
-
-</pre>
+<button mat-button (click)="reloadResults()" *ngIf="!resolvingPosition.getValue()">Reload</button>
+<mat-progress-bar *ngIf="resolvingPosition.getValue()" mode="indeterminate"></mat-progress-bar>
+<div class="map-container">
+  <div class="map-frame">
+    <div id="map"></div>
+  </div>
+</div>

@@ -75,4 +75,15 @@ export class DrinkSpotCreateComponent implements OnInit {
 
   }
 
+  trackLocation() {
+    navigator.geolocation.getCurrentPosition(position => {
+
+      const {latitude, longitude} = position.coords;
+
+      this.createForm.get('latitude').setValue(latitude);
+      this.createForm.get('longitude').setValue(longitude);
+
+    });
+  }
+
 }

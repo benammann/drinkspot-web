@@ -26,6 +26,7 @@ import { NavigationAppBarComponent } from './components/navigation/navigation-ap
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { DrinkSpotCreateComponent } from './pages/drink-spot/drink-spot-create/drink-spot-create.component';
 import {MatSelectModule} from '@angular/material/select';
+import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,8 @@ import {MatSelectModule} from '@angular/material/select';
     MatProgressBarModule,
     MatToolbarModule,
     MatSelectModule,
+
+    LeafletModule
 
   ],
   providers: [],

@@ -45,7 +45,7 @@ type Query {
   "Returns the current api version"
   getCurrentUser: CurrentUser
   "Searches for nearby drinking spots"
-  searchDrinkingSpots(latitude: Float!, longitude: Float!, radius: Int): [DrinkSpot!]!
+  searchDrinkingSpots(latitude: Float!, longitude: Float!, name: String, quality: [DrinkSpotWaterQuality!], radius: Int!): [DrinkSpot!]!
 }
 
 enum DrinkSpotWaterQuality {
