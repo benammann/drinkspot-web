@@ -1,0 +1,11 @@
+{
+  "name": "DrinkSpot Schema",
+  "schemaPath": "schema.graphql",
+  "extensions": {
+    "endpoints": {
+      "Main GraphQL Endpoint": {
+        "url": "http://localhost:3020/graphql"
+      }
+    }
+  }
+}

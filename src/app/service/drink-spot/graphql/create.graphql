@@ -1,0 +1,12 @@
+mutation createDrinkSpot($name: String!, $description: String!, $latitude: Float!, $longitude: Float!, $quality: DrinkSpotWaterQuality!) {
+  createDrinkSpot(name: $name, description: $description, Latitude: $latitude, Longitude: $longitude, Quality: $quality) {
+    id,
+    name,
+    description,
+    latitude,
+    longitude,
+    quality,
+    up_votes,
+    down_votes
+  }
+}

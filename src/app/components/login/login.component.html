@@ -1,21 +1,28 @@
 <mat-card>
-  <mat-card-title>Login</mat-card-title>
+  <mat-card-title>Sign into your account</mat-card-title>
   <mat-card-content>
-    <form [formGroup]="loginForm" (ngSubmit)="handleLoginFormSubmit(loginForm.value)">
-      <p>
-        <mat-form-field>
-          <input type="text" matInput placeholder="Username" formControlName="username">
-        </mat-form-field>
-      </p>
 
-      <p>
-        <mat-form-field>
-          <input type="password" matInput placeholder="Password" formControlName="password">
-        </mat-form-field>
-      </p>
+    <form [formGroup]="loginForm" (ngSubmit)="handleLoginFormSubmit(loginForm.value)">
+
+      <mat-progress-bar *ngIf="authentication.authorizationPending.value" mode="indeterminate"></mat-progress-bar>
+
+      <mat-form-field appearance="outline">
+        <mat-label>E-Mail Address</mat-label>
+        <input formControlName="username" type="email" matInput>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput [type]="this.hidePassword ? 'password' : 'text'" formControlName="password">
+        <button type="button" mat-icon-button matSuffix (click)="this.hidePassword = !this.hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="this.hidePassword">
+          <mat-icon>{{this.hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <mat-checkbox [disabled]="loginForm.disabled">Remember me</mat-checkbox>
 
       <div class="button">
-        <button type="submit" mat-button [disabled]="loginForm.disabled">Login</button>
+        <button type="submit" mat-raised-button mat-button color="primary" [disabled]="loginForm.disabled || !loginForm.valid">Login</button>
       </div>
 
     </form>

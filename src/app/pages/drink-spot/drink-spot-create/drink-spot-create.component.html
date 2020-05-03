@@ -1,0 +1,42 @@
+<mat-card>
+  <mat-card-title>Create a new Drink Spot</mat-card-title>
+  <mat-card-content>
+
+    <form [formGroup]="createForm" (ngSubmit)="handleFormSubmit(createForm.value)">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input formControlName="name" matInput>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <input formControlName="description" matInput>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Latitude</mat-label>
+        <input type="number" formControlName="latitude" matInput>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Longitude</mat-label>
+        <input type="number" formControlName="longitude" matInput>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Favorite food</mat-label>
+        <mat-select formControlName="quality">
+          <mat-option *ngFor="let qualityOption of qualityOptions" [value]="qualityOption.value">
+            {{qualityOption.label}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="button">
+        <button type="submit" mat-raised-button mat-button color="primary" [disabled]="createForm.disabled || !createForm.valid">Create Drink Spot</button>
+      </div>
+
+    </form>
+  </mat-card-content>
+</mat-card>

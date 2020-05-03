@@ -1,0 +1,18 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>{{ getNavigationTitle() }}</span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button (click)="redirectToHome()">
+      <mat-icon>home</mat-icon>
+    </button>
+    <button mat-icon-button *ngIf="isLoggedIn()" (click)="redirectToCreate()">
+      <mat-icon>create</mat-icon>
+    </button>
+    <button mat-icon-button *ngIf="isLoggedIn()" (click)="redirectToProfile()">
+      <mat-icon>portrait</mat-icon>
+    </button>
+    <button mat-icon-button *ngIf="!isLoggedIn()" (click)="redirectToLogin()">
+      <mat-icon>portrait</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>

@@ -1,0 +1,55 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+"Represents the api version"
+type ApiVersion {
+  "Represents the app name"
+  app_name: String
+  "Represents the app version"
+  app_version: String
+}
+
+"""
+
+Represents the api version
+You must be authorized to use this function
+"""
+type CurrentUser {
+  "Represents the app name"
+  email_address: String
+}
+
+"Represents a DrinkSpot"
+type DrinkSpot {
+  description: String
+  down_votes: Int
+  id: Int
+  latitude: Float
+  longitude: Float
+  name: String
+  quality: String
+  up_votes: Int
+}
+
+type Mutation {
+  createDrinkSpot(Latitude: Float!, Longitude: Float!, Quality: DrinkSpotWaterQuality!, description: String!, name: String!): DrinkSpot
+}
+
+type Query {
+  "Returns the current api version"
+  getApiVersion: ApiVersion
+  "Returns the current api version"
+  getCurrentUser: CurrentUser
+  "Searches for nearby drinking spots"
+  searchDrinkingSpots(latitude: Float!, longitude: Float!, radius: Int): [DrinkSpot!]!
+}
+
+enum DrinkSpotWaterQuality {
+  DRINKABLE
+  NOT_DRINKABLE
+  UNKNOWN
+}

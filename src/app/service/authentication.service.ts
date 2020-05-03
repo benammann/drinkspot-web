@@ -6,6 +6,7 @@ import jwtDecode from 'jwt-decode';
 import {BehaviorSubject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {NavigationExtras, Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,9 @@ export class AuthenticationService {
 
   // holds the login state
   public singedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  // is true when an api call is pending
+  public authorizationPending: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   // holds the jwt token
   public jwtToken: BehaviorSubject<string> = new BehaviorSubject<string>('');
@@ -25,8 +29,9 @@ export class AuthenticationService {
   /**
    * @param httpClient
    * @param snackBar
+   * @param router
    */
-  constructor(private httpClient: HttpClient, private snackBar: MatSnackBar) {
+  constructor(private httpClient: HttpClient, private snackBar: MatSnackBar, private router: Router) {
 
     // subscribes to a jwt token change
     // to initialize the renewal timeout
@@ -56,7 +61,6 @@ export class AuthenticationService {
   }
 
   public register(request: RegisterRequest) {
-
   }
 
   /**
@@ -65,10 +69,11 @@ export class AuthenticationService {
    */
   public login(request: LoginRequest) {
 
+    this.authorizationPending.next(true);
     this.httpClient.post<LoginResponse>(`${environment.authEndpoint}/login`, request)
       .subscribe({
         next: this.handleTokenizedResponse.bind(this),
-        error: this.handleHTTPError.bind(this)
+        error: this.handleHTTPError.bind(this),
       });
 
   }
@@ -99,11 +104,6 @@ export class AuthenticationService {
     // check if the response is successful
     if(!error && token) {
 
-      // show the notification in case the user was not singed in
-      if(!this.jwtToken.value || !this.singedIn.value) {
-        this.snackBar.open("You are now singed in")
-      }
-
       // set the new JWT token
       this.jwtToken.next(token);
 
@@ -111,6 +111,8 @@ export class AuthenticationService {
       // this allows to subscribe to change events
       if(!this.singedIn.value) {
         this.singedIn.next(true);
+        this.snackBar.open("You are now singed in");
+        this.router.navigate(['/my-profile'])
       }
 
     }
@@ -128,6 +130,8 @@ export class AuthenticationService {
 
     }
 
+    this.authorizationPending.next(false);
+
   }
 
 
@@ -141,7 +145,8 @@ export class AuthenticationService {
       horizontalPosition: 'right',
     });
     this.jwtToken.next("");
-    this.singedIn.next(false)
+    this.singedIn.next(false);
+    this.authorizationPending.next(false);
   }
 
 }

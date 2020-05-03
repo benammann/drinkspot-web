@@ -16,15 +16,31 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './app.routes';
+import {MatIconModule} from '@angular/material/icon';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
+import {GraphQLModule} from './graphql.module';
+import { NavigationAppBarComponent } from './components/navigation/navigation-app-bar/navigation-app-bar.component';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { DrinkSpotCreateComponent } from './pages/drink-spot/drink-spot-create/drink-spot-create.component';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomePageComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    ProfilePageComponent,
+    NavigationAppBarComponent,
+    DrinkSpotCreateComponent
   ],
   imports: [
+
+    GraphQLModule,
+
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
@@ -39,6 +55,12 @@ import { appRoutes } from './app.routes';
     RouterModule.forRoot(appRoutes, {
       scrollPositionRestoration: 'enabled',
     }),
+    MatIconModule,
+    MatCheckboxModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+    MatToolbarModule,
+    MatSelectModule,
 
   ],
   providers: [],

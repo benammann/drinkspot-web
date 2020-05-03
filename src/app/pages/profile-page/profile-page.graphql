@@ -1,0 +1,5 @@
+query ProfilePageData {
+  current_user: getCurrentUser {
+    email_address
+  }
+}
