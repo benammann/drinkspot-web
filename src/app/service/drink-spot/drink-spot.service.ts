@@ -33,7 +33,7 @@ export class DrinkSpotService {
    * @param variables
    */
   public searchDrinkSpot(variables: SearchDrinkSpotQueryVariables) {
-    this.searchQuery.fetch(variables).subscribe({
+    this.searchQuery.watch(variables).valueChanges.subscribe({
       next: response => {
         if(!response.errors) {
           this.searchResults.next(response.data.search_results)

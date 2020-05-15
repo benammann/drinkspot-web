@@ -88,7 +88,6 @@ export class HomePageComponent implements OnInit, AfterViewInit {
   }
 
   public reloadResults() {
-    debugger;
     this.fetchMarkers(this.geolocation.getValue())
   }
 

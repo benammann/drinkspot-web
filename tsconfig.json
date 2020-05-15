@@ -19,7 +19,8 @@
       "dom",
       "esnext.asynciterable"
     ],
-    "types": ["node"]
+    "types": ["node"],
+    "noImplicitAny": false,
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

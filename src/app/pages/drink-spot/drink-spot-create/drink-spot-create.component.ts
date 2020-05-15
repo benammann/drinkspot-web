@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CreateDrinkSpotMutationVariables, DrinkSpotWaterQuality} from '../../../graphql-types';
 import {DrinkSpotService} from '../../../service/drink-spot/drink-spot.service';
+import * as L from 'leaflet'
 
 interface QualityOption {
   value: string,
@@ -13,10 +14,11 @@ interface QualityOption {
   templateUrl: './drink-spot-create.component.html',
   styleUrls: ['./drink-spot-create.component.scss']
 })
-export class DrinkSpotCreateComponent implements OnInit {
+export class DrinkSpotCreateComponent implements OnInit, AfterViewInit {
 
   public createForm: FormGroup;
   public qualityOptions: QualityOption[] = [];
+  private map: L.Map;
 
 
   private formDefaults: CreateDrinkSpotMutationVariables = {
@@ -84,6 +86,9 @@ export class DrinkSpotCreateComponent implements OnInit {
       this.createForm.get('longitude').setValue(longitude);
 
     });
+  }
+
+  ngAfterViewInit(): void {
   }
 
 }
